@@ -8,6 +8,7 @@ import './styles/hero.css';
 import './styles/sections.css';
 import './styles/pro.css';
 import './styles/lamp.css';
+import './styles/showcase.css';
 import './styles/footer.css';
 
 import Lenis from 'lenis';
@@ -24,6 +25,7 @@ import { initMagnetic } from './effects.js';
 import { initHowHorizontal } from './how-horizontal.js';
 import { initBentoMap } from './bento-map.js';
 import { initLamp, initLoader } from './lamp.js';
+import { initShowcase } from './showcase.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -62,11 +64,12 @@ function renderExplore() {
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-|-$/g, '');
+      const media = l.image
+        ? `<img src="${l.image}" alt="" loading="lazy" decoding="async" />`
+        : `<span class="xcard__tag">image · ${key}</span>`;
       return `
       <a href="#" class="xcard reveal" data-explore="${key}">
-        <div class="xcard__media">
-          <span class="xcard__tag">image · ${key}</span>
-        </div>
+        <div class="xcard__media">${media}</div>
         <div class="xcard__body">
           <h3 class="xcard__title">${l.title}<span class="xcard__arrow">${icon('arrow')}</span></h3>
           <p class="xcard__text">${l.text}</p>
@@ -237,6 +240,7 @@ initSmoothScroll();
 initCursor({ prefersReduced });
 initOpener({ prefersReduced });
 initHowHorizontal({ prefersReduced });
+initShowcase({ prefersReduced });
 initBentoMap(document.getElementById('bentoMap'));
 initSplit({ prefersReduced });
 initParallax({ prefersReduced });

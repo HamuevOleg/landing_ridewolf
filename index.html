@@ -108,14 +108,22 @@
       <!-- ============ MANIFESTO · editorial split-text on black ============ -->
       <section class="manifesto" aria-label="What we build">
         <div class="manifesto__inner">
-          <p class="manifesto__line"><span data-split>Rooted in the street.</span></p>
+          <p class="manifesto__line"><span data-split>Rooted in the street.</span>
+            <span class="manifesto__chip" data-parallax="0.1" aria-hidden="true">
+              <video src="/media/manifesto-street.mp4" muted loop autoplay playsinline preload="metadata"></video>
+            </span>
+          </p>
           <p class="manifesto__line">
             <span class="manifesto__chip" data-parallax="0.12" aria-hidden="true">
               <video src="/media/scooter-zone.mp4" muted loop autoplay playsinline preload="metadata"></video>
             </span>
             <span data-split>Built for the whole city.</span>
           </p>
-          <p class="manifesto__line"><span data-split>Scooters, bikes, mopeds, cars —</span></p>
+          <p class="manifesto__line"><span data-split>Scooters, bikes, mopeds, cars —</span>
+            <span class="manifesto__chip" data-parallax="0.1" aria-hidden="true">
+              <video src="/media/manifesto-fleet.mp4" muted loop autoplay playsinline preload="metadata"></video>
+            </span>
+          </p>
           <p class="manifesto__line">
             <span data-split>One platform</span>
             <span class="manifesto__chip" data-parallax="0.12" aria-hidden="true">
@@ -201,7 +209,7 @@
             <article class="howx__panel howx__card">
               <span class="howx__num">01</span>
               <div class="howx__media" data-media="how-1">
-                <span class="howx__media-tag">video · setup</span>
+                <video src="/media/how-setup.mp4" muted loop autoplay playsinline preload="metadata" aria-hidden="true"></video>
               </div>
               <div class="howx__body">
                 <h3>Set up your fleet</h3>
@@ -212,7 +220,7 @@
             <article class="howx__panel howx__card">
               <span class="howx__num">02</span>
               <div class="howx__media" data-media="how-2">
-                <span class="howx__media-tag">video · unlock</span>
+                <video src="/media/how-unlock.mp4" muted loop autoplay playsinline preload="metadata" aria-hidden="true"></video>
               </div>
               <div class="howx__body">
                 <h3>Riders find &amp; unlock</h3>
@@ -223,7 +231,7 @@
             <article class="howx__panel howx__card">
               <span class="howx__num">03</span>
               <div class="howx__media" data-media="how-3">
-                <span class="howx__media-tag">video · ride &amp; pay</span>
+                <video src="/media/how-ride.mp4" muted loop autoplay playsinline preload="metadata" aria-hidden="true"></video>
               </div>
               <div class="howx__body">
                 <h3>Ride, park &amp; pay</h3>
@@ -251,34 +259,49 @@
         </div>
       </section>
 
-      <!-- ===================== KINETIC STATS ===================== -->
-      <section class="kstats" aria-label="By the numbers">
-        <div class="kstats__bg" aria-hidden="true"></div>
-        <div class="container kstats__grid">
-          <div class="kstat reveal">
-            <div class="kstat__num" data-count="30" data-suffix="+">0</div>
-            <div class="kstat__label">Cities live</div>
+      <!-- ===================== PRODUCT SPOTLIGHT · pinned cut-out + orbiting info ===================== -->
+      <section class="showcase" data-theme="dark" aria-label="The hardware">
+        <div class="showcase__pin">
+          <div class="showcase__head">
+            <span class="eyebrow">The hardware</span>
+            <h2>Sharing-ready, out of the box</h2>
           </div>
-          <div class="kstat reveal">
-            <div class="kstat__num" data-count="12" data-suffix="k">0</div>
-            <div class="kstat__label">Vehicles managed</div>
+
+          <div class="showcase__tilt">
+            <div class="showcase__scale">
+              <div class="showcase__glow" aria-hidden="true"></div>
+              <img class="showcase__img" src="/media/scooter-cutout.png" alt="Ridewolf sharing e-scooter" />
+              <div class="showcase__placeholder" aria-hidden="true">
+                scooter-cutout.png
+                <small>drop a transparent PNG here</small>
+              </div>
+              <div class="showcase__shadow" aria-hidden="true"></div>
+            </div>
           </div>
-          <div class="kstat reveal">
-            <div class="kstat__num" data-count="99" data-suffix="%">0</div>
-            <div class="kstat__label">Platform uptime</div>
+
+          <div class="showcase__info showcase__info--tl">
+            <h3><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="10" x="2" y="7" rx="2"/><path d="M22 11v2"/><path d="m9 9-2 3h3l-2 3"/></svg></span> Swappable battery</h3>
+            <p>Up to 60 km of range, hot-swapped in seconds — no downtime for charging.</p>
           </div>
-          <div class="kstat reveal">
-            <div class="kstat__num" data-count="4">0</div>
-            <div class="kstat__label">Vehicle types</div>
+          <div class="showcase__info showcase__info--tr">
+            <h3><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10a7.31 7.31 0 0 0 10 10Z"/><path d="m9 15 3-3"/><path d="M17 13a6 6 0 0 0-6-6"/><path d="M21 13A10 10 0 0 0 11 3"/></svg></span> GPS + IoT lock</h3>
+            <p>Live location and remote lock/unlock built into every single unit.</p>
+          </div>
+          <div class="showcase__info showcase__info--bl">
+            <h3><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></span> Geofenced control</h3>
+            <p>Automatic speed limits, no-go areas and bonus parking zones — enforced on device.</p>
+          </div>
+          <div class="showcase__info showcase__info--br">
+            <h3><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span> Tap to ride</h3>
+            <p>Unlock, pay-per-minute and auto-settle — payments handled end to end.</p>
           </div>
         </div>
       </section>
 
       <!-- ===================== CTA · cinematic full-bleed ===================== -->
       <section class="cta-cine" id="demo" aria-label="Request a demo">
-        <video class="cta-cine__video" muted loop autoplay playsinline preload="metadata" aria-hidden="true" tabindex="-1">
-          <source src="/media/hero-sequence.mp4" type="video/mp4" />
-        </video>
+        <div class="cta-cine__bg" aria-hidden="true"></div>
+        <div class="cta-cine__grid" aria-hidden="true"></div>
         <div class="cta-cine__tint" aria-hidden="true"></div>
         <div class="cta-cine__inner container">
           <h2 data-split>Ready to launch your sharing fleet?</h2>

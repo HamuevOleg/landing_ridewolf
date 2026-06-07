@@ -196,14 +196,28 @@
   color: rgba(255, 255, 255, 0.34);
 }
 .manifesto__chip {
+  position: relative;
   display: inline-block;
-  width: clamp(72px, 9vw, 138px);
-  height: clamp(46px, 5.6vw, 84px);
-  border-radius: 14px;
+  width: clamp(82px, 9.5vw, 152px);
+  height: clamp(54px, 6vw, 94px);
+  border-radius: 18px;
   overflow: hidden;
   vertical-align: middle;
-  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 107, 87, 0.4);
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.55),
+    0 0 40px rgba(255, 107, 87, 0.22);
   transform: translateY(-0.06em);
+}
+/* subtle coral tint + inner ring so the chips feel on-brand */
+.manifesto__chip::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 107, 87, 0.16), transparent 55%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+  pointer-events: none;
 }
 .manifesto__chip video,
 .manifesto__chip img {
@@ -211,4 +225,9 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.6s var(--ease-out);
+}
+.manifesto__chip:hover video,
+.manifesto__chip:hover img {
+  transform: scale(1.08);
 }

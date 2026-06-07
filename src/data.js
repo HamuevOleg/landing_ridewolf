@@ -45,21 +45,26 @@ export const exploreLinks = [
   {
     title: 'Digital rental software',
     text: 'Automate your rental business. ID verification, digital onboarding, fleet management, payments, and analytics in one system.',
+    image: '/media/explore-rental.jpg',
   },
   {
     title: 'Ride-hailing software',
     text: 'A ready-made platform for ride-hailing and taxi services. Dispatch, driver app, and rider app for cars, vans, and motorcycles.',
+    image: '/media/explore-ride-hailing.jpg',
   },
   {
     title: 'Pricing',
     text: 'Flexible plans for fleets of any size. Unlimited rides, vehicles, drivers, and users.',
+    image: '/media/explore-pricing.jpg',
   },
   {
     title: 'Rider App',
     text: 'Customer-facing mobile app with maps, unlock, payments, and trip history built in.',
+    image: '/media/explore-rider-app.jpg',
   },
   {
     title: 'Payments',
     text: 'Cards, wallets & local methods with automatic billing and revenue reporting.',
+    image: '/media/explore-payments.jpg',
   },
 ];
