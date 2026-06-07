@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initParticles } from './particles.js';
 
 // --- Tuning knobs ---------------------------------------------------------
-const PX_PER_SEC = 60; // scroll px mapped to 1s of video (lower = more video per scroll)
+const PX_PER_SEC = 170; // scroll px per 1s of video (intro clip is short, so stretch it)
 const VIDEO_END = 0.82; // progress at which the video reaches its final frame
 const LOGO_IN = [0.8, 0.9]; // progress range: logo fades/settles in
 const FLY = [0.9, 1.0]; // progress range: dolly into the logo + black iris
