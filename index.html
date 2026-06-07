@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vehicle Sharing Platform — Scooter, Bike, Moped, Car | Ridewolf</title>
+    <meta
+      name="description"
+      content="Launch and manage scooter-, bike-, moped-, or car-sharing fleets. White-label apps, fleet operations, real-time tracking, and payments — one platform."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter+Tight:ital,wght@0,400;0,500;0,600;1,400&family=Geist+Mono:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      // Set theme before paint to avoid flash
+      try {
+        document.documentElement.setAttribute(
+          'data-theme',
+          localStorage.getItem('theme') || 'light'
+        );
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <!-- ===================== HEADER ===================== -->
+    <header class="header" id="header">
+      <div class="header__container">
+        <a href="#" class="header__logo">
+          <span class="header__logo-mark" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 18a3 3 0 1 0 6 0 3 3 0 1 0-6 0"/><path d="M13 18a3 3 0 1 0 6 0 3 3 0 1 0-6 0"/><path d="M8 18h6l-2-9 4 3h2"/></svg>
+          </span>
+          Ridewolf
+        </a>
+
+        <nav class="header__nav" aria-label="Primary">
+          <a href="#features" class="header__link">Features</a>
+          <a href="#how" class="header__link">How it works</a>
+          <a href="#explore" class="header__link">Products</a>
+          <a href="#demo" class="header__link">Pricing</a>
+        </nav>
+
+        <div class="header__actions">
+          <button class="header__lang" aria-label="Language: English">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            EN
+          </button>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
+            <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+            <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          </button>
+          <a href="#demo" class="btn btn--sm header__cta--desktop">Request a demo
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M13 8l-4-4M13 8l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <button class="header__burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+        </div>
+      </div>
+
+      <!-- Mobile menu -->
+      <div class="header__mobile" id="mobileMenu" hidden>
+        <a href="#features" class="header__mobile-link">Features</a>
+        <a href="#how" class="header__mobile-link">How it works</a>
+        <a href="#explore" class="header__mobile-link">Products</a>
+        <a href="#demo" class="header__mobile-link">Pricing</a>
+        <a href="#demo" class="btn header__mobile-cta">Request a demo
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M13 8l-4-4M13 8l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <!-- ===================== SCROLL-VIDEO INTRO ===================== -->
+      <section class="intro" id="intro" aria-label="Intro animation">
+        <div class="intro__stage">
+          <video
+            class="intro__video"
+            muted
+            playsinline
+            preload="auto"
+            aria-hidden="true"
+            tabindex="-1"
+          >
+            <source src="/media/intro-scrub.mp4" type="video/mp4" />
+          </video>
+          <div class="intro__tint" aria-hidden="true"></div>
+          <canvas class="intro__particles" aria-hidden="true"></canvas>
+          <div class="intro__vignette" aria-hidden="true"></div>
+          <div class="intro__logo" aria-hidden="true">
+            <img src="/media/Emblem.svg" alt="" width="180" height="180" />
+          </div>
+          <div class="intro__black" aria-hidden="true"></div>
+          <div class="intro__hint" aria-hidden="true">
+            <span>Scroll to begin</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== HERO ===================== -->
+      <section class="hero" data-theme="dark">
+        <div class="hero__bg" id="heroBg" aria-hidden="true"></div>
+        <div class="hero__container container">
+          <div class="hero__text">
+            <span class="hero__badge"><span class="hero__badge-dot"></span> Operating in 30+ cities worldwide</span>
+            <h1 class="hero__title">Launch a <span class="accent">vehicle-sharing</span> fleet in any city</h1>
+            <p class="hero__subtitle">
+              Everything you need to launch and scale a shared fleet — scooters, bikes,
+              mopeds, or cars. One platform, any vehicle, any city.
+            </p>
+            <div class="hero__actions">
+              <a href="#demo" class="btn">Request a demo
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M13 8l-4-4M13 8l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a href="#how" class="btn btn--ghost btn--on-dark">See how it works</a>
+            </div>
+            <div class="hero__stats">
+              <div>
+                <div class="hero__stat-num tabular" data-count="30" data-suffix="+">0</div>
+                <div class="hero__stat-label">Cities live</div>
+              </div>
+              <div>
+                <div class="hero__stat-num tabular" data-count="12" data-suffix="k">0</div>
+                <div class="hero__stat-label">Vehicles managed</div>
+              </div>
+              <div>
+                <div class="hero__stat-num tabular" data-count="99" data-suffix="%">0</div>
+                <div class="hero__stat-label">Platform uptime</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero__visual">
+            <div class="hero__float hero__float--tl">
+              <span class="hero__float-icon hero__float-icon--ok">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              Vehicle unlocked
+            </div>
+
+            <!-- Rider-app mockup (pure CSS/SVG) -->
+            <div class="app-mock" role="img" aria-label="Rider app showing nearby vehicles on a live map">
+              <div class="app-mock__statusbar">
+                <span>9:41</span>
+                <span class="app-mock__brand">Ridewolf</span>
+                <span class="app-mock__signal"></span>
+              </div>
+              <div class="app-mock__map">
+                <svg class="app-mock__roads" viewBox="0 0 320 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <path d="M-20 90 H340" /><path d="M-20 210 H340" /><path d="M-20 300 H340" />
+                  <path d="M70 -20 V380" /><path d="M180 -20 V380" /><path d="M260 -20 V380" />
+                  <path class="app-mock__route" d="M48 320 C 120 300, 120 200, 180 190 S 250 120, 270 70" />
+                </svg>
+                <span class="app-mock__pin app-mock__pin--a"></span>
+                <span class="app-mock__pin app-mock__pin--b"></span>
+                <span class="app-mock__pin app-mock__pin--c"></span>
+                <span class="app-mock__me"></span>
+              </div>
+              <div class="app-mock__sheet">
+                <div class="app-mock__vehicle">
+                  <span class="app-mock__vehicle-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg>
+                  </span>
+                  <div>
+                    <strong>E-Scooter · 120 m</strong>
+                    <span>87% battery · $0.20/min</span>
+                  </div>
+                  <span class="app-mock__badge">Ready</span>
+                </div>
+                <div class="app-mock__unlock">Scan to unlock</div>
+              </div>
+            </div>
+
+            <div class="hero__float hero__float--br">
+              <span class="hero__float-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg>
+              </span>
+              +24% fleet revenue
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== HOW IT WORKS ===================== -->
+      <section class="section section--md" id="how">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="eyebrow">How it works</span>
+            <h2>On the road in three steps</h2>
+            <div class="separator-line"></div>
+            <p>Get your shared fleet live without the operational headache.</p>
+          </div>
+          <div class="how__steps" data-stagger>
+            <div class="how__step reveal">
+              <div class="how__step-number">1</div>
+              <div class="how__step-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>
+              </div>
+              <h3>Set up your fleet</h3>
+              <p>Add your vehicles, define service zones, and configure pricing. Our team helps you get everything ready for launch.</p>
+            </div>
+            <div class="how__step reveal">
+              <div class="how__step-number">2</div>
+              <div class="how__step-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11s-8-6-8-11a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <h3>Riders find &amp; unlock</h3>
+              <p>Customers download your branded app, find nearby vehicles on the map, and unlock them with a single tap.</p>
+            </div>
+            <div class="how__step reveal">
+              <div class="how__step-number">3</div>
+              <div class="how__step-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg>
+              </div>
+              <h3>Ride, park &amp; pay</h3>
+              <p>Riders enjoy their trip, park in a designated zone, and payment is processed automatically. You track everything in real time.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== FEATURES ===================== -->
+      <section class="section section--md section--alt" id="features">
+        <div class="container">
+          <div class="section-header section-header--left reveal">
+            <div>
+              <span class="eyebrow">Platform</span>
+              <h2>Built for shared mobility</h2>
+              <p>Every tool you need to run a profitable fleet — from day one.</p>
+            </div>
+            <a href="#demo" class="btn btn--ghost btn--sm">Request a demo
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M13 8l-4-4M13 8l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+          <div class="features__grid" data-stagger id="featuresGrid"></div>
+        </div>
+      </section>
+
+      <!-- ===================== CTA ===================== -->
+      <section class="cta" id="demo">
+        <div class="container">
+          <div class="cta__island reveal">
+            <h2>Ready to launch your sharing fleet?</h2>
+            <p>Join operators worldwide who trust Ridewolf to power their vehicle sharing business. Get a personalized demo today.</p>
+            <a href="#demo" class="btn">Request a demo
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M13 8l-4-4M13 8l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== EXPLORE MORE ===================== -->
+      <section class="section section--md" id="explore">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="eyebrow">More from Ridewolf</span>
+            <h2>Explore more</h2>
+            <div class="separator-line"></div>
+          </div>
+          <div class="explore__grid" data-stagger id="exploreGrid"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+      <div class="footer__top container">
+        <div class="footer__grid">
+          <div class="footer__brand">
+            <a href="#" class="header__logo">
+              <span class="header__logo-mark" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 18a3 3 0 1 0 6 0 3 3 0 1 0-6 0"/><path d="M13 18a3 3 0 1 0 6 0 3 3 0 1 0-6 0"/><path d="M8 18h6l-2-9 4 3h2"/></svg>
+              </span>
+              Ridewolf
+            </a>
+            <p class="footer__slogan">We help operators launch and scale mobility platforms.</p>
+          </div>
+          <div>
+            <h4 class="footer__title">Products</h4>
+            <ul class="footer__list">
+              <li><a href="#">Vehicle Sharing</a></li>
+              <li><a href="#">Digital Rental</a></li>
+              <li><a href="#">Ride-Hailing</a></li>
+              <li><a href="#">Pricing</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer__title">Features</h4>
+            <ul class="footer__list">
+              <li><a href="#">Rider App</a></li>
+              <li><a href="#">Dashboard</a></li>
+              <li><a href="#">Payments</a></li>
+              <li><a href="#">Connectivity</a></li>
+              <li><a href="#">Analytics</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer__title">Resources</h4>
+            <ul class="footer__list">
+              <li><a href="#">Roadmap</a></li>
+              <li><a href="#">Knowledge Base</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Marketplace</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer__title">Connect</h4>
+            <ul class="footer__list">
+              <li><a href="mailto:contact@ridewolf.com">contact@ridewolf.com</a></li>
+              <li><a href="tel:+14842989791">+1 484-298-9791</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <div class="footer__bottom-inner container">
+          <div class="footer__legal">
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+          </div>
+          <p class="footer__copy">© 2026 Ridewolf, Inc.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
