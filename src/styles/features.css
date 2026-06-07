@@ -68,9 +68,9 @@
   position: absolute;
   z-index: 1;
   right: var(--space-lg);
-  bottom: var(--space-lg);
+  top: var(--space-lg);
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 7px;
   padding: 8px 14px;
   border-radius: var(--radius-full);

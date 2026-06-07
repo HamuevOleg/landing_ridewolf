@@ -10,27 +10,29 @@ export function initHowHorizontal({ prefersReduced } = {}) {
   const track = section?.querySelector('.howx__track');
   if (!section || !pin || !track) return;
 
-  const small = window.matchMedia('(max-width: 940px)').matches;
-  if (prefersReduced || small) {
-    section.classList.add('howx--static');
-    return;
-  }
-
   const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
 
-  gsap.to(track, {
-    x: () => -distance(),
-    ease: 'none',
-    scrollTrigger: {
-      trigger: section,
-      start: 'top top',
-      end: () => '+=' + distance(),
-      pin: pin,
-      scrub: 1,
-      anticipatePin: 1,
-      invalidateOnRefresh: true,
-    },
+  // Horizontal pin only on desktop + motion-OK; auto-torn-down on resize to
+  // mobile / reduced-motion, where the CSS media query stacks the panels.
+  const mm = gsap.matchMedia();
+  mm.add('(min-width: 941px) and (prefers-reduced-motion: no-preference)', () => {
+    const tween = gsap.to(track, {
+      x: () => -distance(),
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top top',
+        end: () => '+=' + distance(),
+        pin,
+        scrub: 1,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      },
+    });
+    return () => {
+      tween.scrollTrigger && tween.scrollTrigger.kill();
+      tween.kill();
+      gsap.set(track, { clearProps: 'all' });
+    };
   });
-
-  ScrollTrigger.refresh();
 }

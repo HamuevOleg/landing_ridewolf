@@ -181,31 +181,40 @@
 .showcase__info--bl { bottom: 24%; left: 7%; }
 .showcase__info--br { bottom: 16%; right: 6%; }
 
-/* ---------- static fallback (reduced motion / mobile) ---------- */
-.showcase--static .showcase__pin {
-  height: auto;
-  padding-block: var(--space-4xl);
-}
-.showcase--static .showcase__tilt {
-  position: relative;
-  inset: auto;
-  transform: none;
-  margin-block: var(--space-2xl);
-}
-.showcase--static .showcase__info {
-  position: relative;
-  inset: auto;
-  opacity: 1;
-  width: min(92%, 420px);
-  margin: var(--space-md) auto 0;
-}
-.showcase--static .showcase__head {
-  position: relative;
-  top: auto;
-  left: auto;
-  transform: none;
-  width: auto;
-  margin: 0 auto var(--space-xl);
+/* ---------- stacked layout on mobile / reduced-motion (width-driven, robust) ---------- */
+@media (max-width: 940px), (prefers-reduced-motion: reduce) {
+  .showcase__pin {
+    height: auto;
+    padding-block: var(--space-4xl);
+  }
+  .showcase__tilt {
+    position: relative;
+    inset: auto;
+    transform: none;
+    margin-block: var(--space-2xl);
+  }
+  .showcase__scale {
+    width: min(70vw, 360px);
+  }
+  .showcase__info {
+    position: relative;
+    inset: auto;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    opacity: 1;
+    width: min(92%, 440px);
+    margin: var(--space-md) auto 0;
+  }
+  .showcase__head {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: auto;
+    margin: 0 auto var(--space-xl);
+  }
 }
 
 @media (max-width: 940px) {

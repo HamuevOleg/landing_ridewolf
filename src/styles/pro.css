@@ -194,21 +194,25 @@
 }
 
 /* Stacked fallback (mobile / reduced motion) */
-.howx--static .howx__pin {
-  height: auto;
-  display: block;
-  padding-block: var(--space-3xl);
-}
-.howx--static .howx__track {
-  flex-direction: column;
-  transform: none !important;
-  gap: var(--space-3xl);
-}
-.howx--static .howx__intro,
-.howx--static .howx__card {
-  width: 100%;
-  max-width: var(--container-max);
-  margin-inline: auto;
+@media (max-width: 940px), (prefers-reduced-motion: reduce) {
+  .howx__pin {
+    height: auto;
+    display: block;
+    overflow: visible;
+    padding-block: var(--space-3xl);
+  }
+  .howx__track {
+    flex-direction: column;
+    transform: none !important;
+    gap: var(--space-3xl);
+    padding-inline: var(--space-lg);
+  }
+  .howx__intro,
+  .howx__card {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+  }
 }
 
 @media (max-width: 720px) {

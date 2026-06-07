@@ -33,12 +33,6 @@ export function initShowcase({ prefersReduced } = {}) {
     syncImg();
   }
 
-  const small = window.matchMedia('(max-width: 940px)').matches;
-  if (prefersReduced || small) {
-    section.classList.add('showcase--static');
-    return;
-  }
-
   // entry offset per corner
   const offset = (el) => {
     const left = el.classList.contains('showcase__info--tl') || el.classList.contains('showcase__info--bl');
@@ -47,43 +41,51 @@ export function initShowcase({ prefersReduced } = {}) {
   };
   infos.forEach((el) => (el._off = offset(el)));
 
-  // Pinned, scrubbed reveal
-  ScrollTrigger.create({
-    trigger: section,
-    start: 'top top',
-    end: '+=220%',
-    pin,
-    scrub: true,
-    anticipatePin: 1,
-    invalidateOnRefresh: true,
-    onUpdate: (self) => {
-      const p = self.progress;
-      gsap.set(scaleEl, { scale: 0.84 + p * 0.24, y: 24 - p * 36 });
-      infos.forEach((el, i) => {
-        const start = 0.12 + i * 0.18;
-        const t = clamp01((p - start) / 0.16);
-        gsap.set(el, {
-          autoAlpha: t,
-          x: el._off.dx * (1 - t),
-          y: el._off.dy * (1 - t),
+  // Desktop + motion-OK only: pinned scrub + mouse tilt. gsap.matchMedia
+  // auto-reverts on resize to mobile / reduced-motion; the CSS media query
+  // then renders the clean stacked layout. (Robust to window resizing.)
+  const mm = gsap.matchMedia();
+  mm.add('(min-width: 941px) and (prefers-reduced-motion: no-preference)', () => {
+    const st = ScrollTrigger.create({
+      trigger: section,
+      start: 'top top',
+      end: '+=220%',
+      pin,
+      scrub: true,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        const p = self.progress;
+        gsap.set(scaleEl, { scale: 0.84 + p * 0.24, y: 24 - p * 36 });
+        infos.forEach((el, i) => {
+          const start = 0.12 + i * 0.18;
+          const t = clamp01((p - start) / 0.16);
+          gsap.set(el, { autoAlpha: t, x: el._off.dx * (1 - t), y: el._off.dy * (1 - t) });
         });
-      });
-    },
-  });
+      },
+    });
 
-  // Mouse tilt — the main "it's 3D" cue for a flat cut-out
-  const maxTilt = 9;
-  pin.addEventListener('pointermove', (e) => {
-    const r = pin.getBoundingClientRect();
-    const nx = (e.clientX - r.left) / r.width - 0.5;
-    const ny = (e.clientY - r.top) / r.height - 0.5;
-    tilt.style.setProperty('--ry', `${nx * maxTilt}deg`);
-    tilt.style.setProperty('--rx', `${-ny * maxTilt}deg`);
-  });
-  pin.addEventListener('pointerleave', () => {
-    tilt.style.setProperty('--ry', '0deg');
-    tilt.style.setProperty('--rx', '0deg');
-  });
+    const maxTilt = 9;
+    const onMove = (e) => {
+      const r = pin.getBoundingClientRect();
+      tilt.style.setProperty('--ry', `${((e.clientX - r.left) / r.width - 0.5) * maxTilt}deg`);
+      tilt.style.setProperty('--rx', `${-((e.clientY - r.top) / r.height - 0.5) * maxTilt}deg`);
+    };
+    const onLeave = () => {
+      tilt.style.setProperty('--ry', '0deg');
+      tilt.style.setProperty('--rx', '0deg');
+    };
+    pin.addEventListener('pointermove', onMove);
+    pin.addEventListener('pointerleave', onLeave);
 
-  ScrollTrigger.refresh();
+    return () => {
+      st.kill();
+      pin.removeEventListener('pointermove', onMove);
+      pin.removeEventListener('pointerleave', onLeave);
+      // drop inline transforms/opacity so the stacked CSS layout is clean
+      gsap.set([scaleEl, ...infos], { clearProps: 'all' });
+      tilt.style.removeProperty('--rx');
+      tilt.style.removeProperty('--ry');
+    };
+  });
 }
