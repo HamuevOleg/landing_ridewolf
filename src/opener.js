@@ -164,27 +164,36 @@ export function initOpener({ prefersReduced } = {}) {
     particles?.setOpacity(1 - clamp01(dive / 0.5));
   }
 
-  function build() {
-    duration = video.duration || segTotal;
-    const filmDist = Math.round(duration * PX_PER_SEC);
-    const dist = Math.round(filmDist / VIDEO_PORTION); // extend so the dive gets its share
-    ScrollTrigger.create({
-      trigger: section,
-      start: 'top top',
-      end: () => '+=' + dist,
-      pin: stage,
-      pinSpacing: true,
-      anticipatePin: 1,
-      invalidateOnRefresh: true,
-      onUpdate: (self) => render(self.progress),
-      onLeave: () => header?.classList.remove('header--hidden'),
-      onEnterBack: () => header?.classList.add('header--hidden'),
-    });
-    render(0);
-    ScrollTrigger.refresh();
-  }
+  // The pin length is derived from the EXPECTED film length (segTotal), NOT the
+  // late-arriving video.duration. This lets the pin — and its spacer — be created
+  // synchronously during boot, in correct DOM order relative to the sections below
+  // (howx / showcase / gallery). The old code deferred creation to `loadedmetadata`,
+  // so on a slow (production / cold-cache) load the opener pin was inserted AFTER
+  // the sections below it and a late refresh couldn't fully reposition them — which
+  // is exactly why prod overlapped while local (instant metadata) looked fine.
+  // segTotal (18s) yields the same scrub distance the real ~18s film produces.
+  duration = segTotal;
+  const dist = Math.round((segTotal * PX_PER_SEC) / VIDEO_PORTION);
+  ScrollTrigger.create({
+    trigger: section,
+    start: 'top top',
+    end: '+=' + dist,
+    pin: stage,
+    pinSpacing: true,
+    anticipatePin: 1,
+    invalidateOnRefresh: true,
+    onUpdate: (self) => render(self.progress),
+    onLeave: () => header?.classList.remove('header--hidden'),
+    onEnterBack: () => header?.classList.add('header--hidden'),
+  });
+  render(0);
 
-  if (video.readyState >= 1 && video.duration) build();
-  else video.addEventListener('loadedmetadata', build, { once: true });
+  // The real duration only refines the scrub seek target; the pin length is fixed,
+  // so metadata arriving late never shifts layout.
+  const syncDuration = () => {
+    if (video.duration) duration = video.duration;
+  };
+  if (video.readyState >= 1 && video.duration) syncDuration();
+  else video.addEventListener('loadedmetadata', syncDuration, { once: true });
   video.load();
 }

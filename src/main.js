@@ -310,5 +310,18 @@ initLoader({ prefersReduced });
 initGallery({ prefersReduced });
 initMagnetic({ prefersReduced });
 
-// Recompute pin distances once fonts / images settle.
-window.addEventListener('load', () => ScrollTrigger.refresh());
+// Recompute pin distances once layout settles. A single load-time refresh races
+// slow (production / cold-cache) media + web-font swaps, leaving pinned-section
+// spacers measured against not-yet-final dimensions. Refresh again after fonts
+// are ready and on a couple of post-load passes so geometry is always correct.
+function settleTriggers() {
+  ScrollTrigger.refresh();
+}
+window.addEventListener('load', () => {
+  settleTriggers();
+  setTimeout(settleTriggers, 300);
+  setTimeout(settleTriggers, 1200);
+});
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(settleTriggers);
+}
