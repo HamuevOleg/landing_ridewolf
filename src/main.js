@@ -2,6 +2,7 @@ import './styles/tokens.css';
 import './styles/base.css';
 import './styles/header.css';
 import './styles/intro.css';
+import './styles/scroll-video.css';
 import './styles/hero.css';
 import './styles/sections.css';
 import './styles/footer.css';
@@ -14,6 +15,7 @@ import { features, exploreLinks } from './data.js';
 import { icon } from './icons.js';
 import { initHeroShader } from './hero-shader.js';
 import { initIntro } from './intro.js';
+import { initScrollVideo } from './scroll-video.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -212,6 +214,9 @@ renderExplore();
 heroShader = initHeroShader(document.getElementById('heroBg'));
 initSmoothScroll();
 initIntro({ prefersReduced });
+document.querySelectorAll('[data-scroll-video]').forEach((s) =>
+  initScrollVideo(s, { pxPerSec: Number(s.dataset.pps) || 100 })
+);
 initReveal();
 initHeader();
 initMobileMenu();
