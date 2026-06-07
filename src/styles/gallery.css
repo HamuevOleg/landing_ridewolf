@@ -1,0 +1,105 @@
+/* ============================================================
+   Gallery — diagonal display words + scattered posters; the centre
+   image scales to fill the screen on scroll (à la danilo "Struggle").
+   ============================================================ */
+
+.gallery {
+  position: relative;
+  background: #0a0b0f;
+  /* re-resolve text colour in the dark scope */
+  color: var(--text-primary);
+}
+.gallery__pin {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.gallery__eyebrow {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  color: var(--main-soft);
+}
+
+.gallery__word {
+  position: absolute;
+  margin: 0;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.045em;
+  line-height: 0.86;
+  color: #fff;
+  font-size: clamp(3rem, 13vw, 12rem);
+  will-change: opacity, transform;
+}
+.gallery__word--a { top: 6%; left: 3%; }
+.gallery__word--b { bottom: 7%; right: 4%; }
+
+.gallery__img {
+  position: absolute;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  z-index: 3;
+  will-change: opacity, transform;
+}
+.gallery__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.gallery__img--1 { top: 11%; right: 11%; width: clamp(120px, 15vw, 250px); aspect-ratio: 3 / 4; transform: rotate(4deg); }
+.gallery__img--2 { top: 46%; left: 4%;   width: clamp(110px, 13vw, 220px); aspect-ratio: 3 / 4; transform: rotate(-6deg); }
+.gallery__img--3 { bottom: 9%; left: 26%; width: clamp(130px, 16vw, 260px); aspect-ratio: 16 / 10; transform: rotate(3deg); }
+.gallery__img--4 { top: 40%; right: 5%;  width: clamp(100px, 12vw, 200px); aspect-ratio: 3 / 4; transform: rotate(-3deg); }
+
+/* the centre poster grows to take over the whole screen on scroll */
+.gallery__img--center {
+  top: 50%;
+  left: 50%;
+  width: clamp(300px, 34vw, 620px);
+  aspect-ratio: 16 / 10;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  border-radius: 10px;
+}
+
+/* Mobile / reduced-motion: clean stacked layout instead of the pinned scroll-zoom */
+.gallery--static .gallery__pin {
+  height: auto;
+  overflow: visible;
+  padding: var(--space-4xl) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.gallery--static .gallery__eyebrow,
+.gallery--static .gallery__word {
+  position: static;
+  transform: none;
+  margin: 0;
+}
+.gallery--static .gallery__word {
+  font-size: clamp(2.6rem, 15vw, 5rem);
+  line-height: 0.92;
+}
+.gallery--static .gallery__word--b {
+  margin-bottom: var(--space-md);
+}
+.gallery--static .gallery__img {
+  position: static;
+  transform: none;
+  opacity: 1;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+}

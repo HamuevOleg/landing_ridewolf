@@ -50,6 +50,33 @@ export function initSplit({ prefersReduced } = {}) {
   });
 }
 
+// Manifesto chips: a sharp left-to-right clip wipe + fade as each enters view.
+// Uses clip-path/opacity only, so it never fights the [data-parallax] transform.
+export function initChipReveal({ prefersReduced } = {}) {
+  const chips = gsap.utils.toArray('.manifesto__chip');
+  if (!chips.length) return;
+  if (prefersReduced) {
+    gsap.set(chips, { opacity: 1, clipPath: 'inset(0 0 0 0 round 10px)' });
+    return;
+  }
+  chips.forEach((el) => {
+    // sharp left→right wipe in place (keeps the inline slot, no layout jump)
+    gsap.set(el, { opacity: 0, clipPath: 'inset(0 100% 0 0 round 10px)' });
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 86%',
+      once: true,
+      onEnter: () =>
+        gsap.to(el, {
+          opacity: 1,
+          clipPath: 'inset(0 0% 0 0 round 10px)',
+          duration: 0.6,
+          ease: 'expo.out',
+        }),
+    });
+  });
+}
+
 export function initParallax({ prefersReduced } = {}) {
   if (prefersReduced) return;
   gsap.utils.toArray('[data-parallax]').forEach((el) => {

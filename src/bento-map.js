@@ -1,5 +1,6 @@
-// Live "fleet map" mini-visual for the big bento tile: a faint street grid with
-// coral vehicle dots gliding along lanes, leaving short trails. Pauses offscreen.
+// Living "fleet ops map" for the big bento tile: a faint street grid with coral
+// vehicle dots gliding along lanes (leaving trails), a rotating radar sweep, and
+// occasional ping pulses at intersections. Pauses offscreen / respects reduced motion.
 export function initBentoMap(canvas) {
   if (!canvas) return null;
   const ctx = canvas.getContext('2d');
@@ -12,7 +13,11 @@ export function initBentoMap(canvas) {
   let raf = null;
   let visible = true;
   let roads = [];
+  let lanesX = [];
+  let lanesY = [];
   let dots = [];
+  let pings = [];
+  let sweep = 0;
 
   function build() {
     w = canvas.clientWidth;
@@ -27,10 +32,10 @@ export function initBentoMap(canvas) {
     roads = [];
     for (let x = stepX * 0.5; x < w; x += stepX) roads.push({ v: true, p: x });
     for (let y = stepY * 0.5; y < h; y += stepY) roads.push({ v: false, p: y });
+    lanesX = roads.filter((r) => r.v).map((r) => r.p);
+    lanesY = roads.filter((r) => !r.v).map((r) => r.p);
 
-    const lanesX = roads.filter((r) => r.v).map((r) => r.p);
-    const lanesY = roads.filter((r) => !r.v).map((r) => r.p);
-    const N = Math.round(Math.min(26, (w * h) / 9000));
+    const N = Math.round(Math.min(28, (w * h) / 8500));
     dots = [];
     for (let i = 0; i < N; i++) {
       const horiz = Math.random() < 0.5;
@@ -42,17 +47,22 @@ export function initBentoMap(canvas) {
         lane,
         pos: Math.random() * (horiz ? w : h),
         sp: (0.3 + Math.random() * 0.9) * (Math.random() < 0.5 ? 1 : -1),
-        r: 1.3 + Math.random() * 1.7,
-        trail: 10 + Math.random() * 22,
+        r: 1.3 + Math.random() * 1.8,
+        trail: 12 + Math.random() * 24,
       });
     }
+    pings = [];
   }
 
   function frame() {
     raf = requestAnimationFrame(frame);
     if (!visible || !w) return;
     ctx.clearRect(0, 0, w, h);
+    const cx = w / 2;
+    const cy = h / 2;
+    const R = Math.hypot(w, h) / 2;
 
+    // street grid
     ctx.lineWidth = 1;
     ctx.strokeStyle = 'rgba(255,255,255,0.06)';
     ctx.beginPath();
@@ -67,6 +77,28 @@ export function initBentoMap(canvas) {
     }
     ctx.stroke();
 
+    // radar sweep
+    sweep += 0.014;
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    const rg = ctx.createRadialGradient(cx, cy, 0, cx, cy, R);
+    rg.addColorStop(0, 'rgba(255,107,87,0.16)');
+    rg.addColorStop(1, 'rgba(255,107,87,0)');
+    ctx.fillStyle = rg;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, R, sweep - 0.62, sweep);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,107,87,0.45)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(sweep) * R, cy + Math.sin(sweep) * R);
+    ctx.stroke();
+    ctx.restore();
+
+    // vehicle dots + trails
     for (const d of dots) {
       d.pos += d.sp;
       const len = d.horiz ? w : h;
@@ -89,13 +121,42 @@ export function initBentoMap(canvas) {
       ctx.lineTo(tx, ty);
       ctx.stroke();
 
-      ctx.fillStyle = 'rgba(255,150,130,1)';
+      ctx.fillStyle = 'rgba(255,170,150,1)';
       ctx.shadowBlur = 10;
       ctx.shadowColor = 'rgba(255,107,87,0.9)';
       ctx.beginPath();
       ctx.arc(x, y, d.r, 0, Math.PI * 2);
       ctx.fill();
       ctx.shadowBlur = 0;
+    }
+
+    // occasional ping pulses at intersections
+    if (lanesX.length && lanesY.length && Math.random() < 0.025 && pings.length < 5) {
+      pings.push({
+        x: lanesX[(Math.random() * lanesX.length) | 0],
+        y: lanesY[(Math.random() * lanesY.length) | 0],
+        t: 0,
+      });
+    }
+    for (let i = pings.length - 1; i >= 0; i--) {
+      const p = pings[i];
+      p.t += 0.018;
+      if (p.t >= 1) {
+        pings.splice(i, 1);
+        continue;
+      }
+      const rad = p.t * 34;
+      ctx.strokeStyle = `rgba(255,107,87,${(1 - p.t) * 0.7})`;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, rad, 0, Math.PI * 2);
+      ctx.stroke();
+      if (p.t < 0.25) {
+        ctx.fillStyle = `rgba(255,170,150,${1 - p.t * 4})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
     }
   }
 

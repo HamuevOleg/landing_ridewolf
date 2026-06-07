@@ -202,8 +202,10 @@
 .showcase--static .showcase__head {
   position: relative;
   top: auto;
+  left: auto;
   transform: none;
-  margin-inline: auto;
+  width: auto;
+  margin: 0 auto var(--space-xl);
 }
 
 @media (max-width: 940px) {

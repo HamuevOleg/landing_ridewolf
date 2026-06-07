@@ -183,31 +183,33 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.18em 0.3em;
-  margin: 0 0 0.06em;
+  gap: 0.14em 0.42em;
+  margin: 0 0 0.04em;
   font-family: var(--font-display);
   font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.06;
-  font-size: clamp(2rem, 7vw, 5.5rem);
+  text-transform: uppercase;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+  font-size: clamp(2.4rem, 8.8vw, 7rem);
   color: #fff;
 }
-.manifesto__line .muted {
-  color: rgba(255, 255, 255, 0.34);
+.manifesto__line .muted,
+.manifesto__line--muted {
+  color: rgba(255, 255, 255, 0.5);
 }
+/* Inline media set INTO the sentence — the text shifts to make room. Sized in
+   `em` so each chip scales with its (huge) line font and sits like a word. */
 .manifesto__chip {
-  position: relative;
   display: inline-block;
-  width: clamp(82px, 9.5vw, 152px);
-  height: clamp(54px, 6vw, 94px);
-  border-radius: 18px;
-  overflow: hidden;
   vertical-align: middle;
-  border: 1px solid rgba(255, 107, 87, 0.4);
-  box-shadow:
-    0 18px 50px rgba(0, 0, 0, 0.55),
-    0 0 40px rgba(255, 107, 87, 0.22);
-  transform: translateY(-0.06em);
+  height: 1.15em;
+  aspect-ratio: 16 / 10;
+  width: auto;
+  border-radius: 0.1em;
+  overflow: hidden;
+  border: 1.5px solid rgba(255, 107, 87, 0.6);
+  box-shadow: 0 0.12em 0.3em rgba(0, 0, 0, 0.5), 0 0 0.28em rgba(255, 107, 87, 0.28);
+  transform: translateY(-0.04em);
 }
 /* subtle coral tint + inner ring so the chips feel on-brand */
 .manifesto__chip::after {

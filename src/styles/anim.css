@@ -8,8 +8,8 @@
   display: inline-block;
   overflow: hidden;
   vertical-align: top;
-  padding-bottom: 0.12em;
-  margin-bottom: -0.12em;
+  padding: 0.14em 0.04em 0.14em;
+  margin: -0.14em -0.04em -0.14em;
 }
 .tw__i {
   display: inline-block;

@@ -9,6 +9,8 @@ import './styles/sections.css';
 import './styles/pro.css';
 import './styles/lamp.css';
 import './styles/showcase.css';
+import './styles/features.css';
+import './styles/gallery.css';
 import './styles/footer.css';
 
 import Lenis from 'lenis';
@@ -20,12 +22,13 @@ import { icon } from './icons.js';
 import { initHeroShader } from './hero-shader.js';
 import { initOpener } from './opener.js';
 import { initCursor } from './cursor.js';
-import { initSplit, initParallax } from './anim.js';
+import { initSplit, initParallax, initChipReveal } from './anim.js';
 import { initMagnetic } from './effects.js';
 import { initHowHorizontal } from './how-horizontal.js';
 import { initBentoMap } from './bento-map.js';
 import { initLamp, initLoader } from './lamp.js';
 import { initShowcase } from './showcase.js';
+import { initGallery } from './gallery.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,7 +46,8 @@ function renderFeatures() {
       const head =
         i === 0
           ? `<div class="feature-card__viz" aria-hidden="true"><canvas id="bentoMap"></canvas></div>
-        <span class="feature-card__live">Live</span>`
+        <span class="feature-card__live">Live</span>
+        <div class="feature-card__hud"><span class="pulse"></span><b data-count="248">0</b> vehicles online</div>`
           : `<div class="feature-card__icon">${icon(f.icon)}</div>`;
       return `
       <article class="feature-card reveal${variant}">
@@ -167,6 +171,53 @@ function initMobileMenu() {
   });
 }
 
+/* ---------- Language dropdown (stub — strings stay EN; browser translator handles the rest) ---------- */
+const LANGS = [
+  ['English', 'EN'], ['Español', 'ES'], ['Português', 'PT'], ['Français', 'FR'],
+  ['Deutsch', 'DE'], ['Italiano', 'IT'], ['Nederlands', 'NL'], ['Svenska', 'SV'],
+  ['Polski', 'PL'], ['Română', 'RO'], ['Ελληνικά', 'EL'], ['Türkçe', 'TR'],
+  ['Українська', 'UK'], ['Русский', 'RU'], ['العربية', 'AR'], ['עברית', 'HE'],
+];
+function initLang() {
+  const root = document.getElementById('lang');
+  const btn = document.getElementById('langBtn');
+  const menu = document.getElementById('langMenu');
+  const current = btn?.querySelector('.lang__current');
+  if (!root || !btn || !menu) return;
+  menu.innerHTML = LANGS.map(
+    ([name, code], i) =>
+      `<li role="option" aria-selected="${i === 0}"><button type="button" data-code="${code}" data-name="${name}"${i === 0 ? ' class="is-active"' : ''}>${name}<span class="code">${code}</span></button></li>`
+  ).join('');
+  const setOpen = (open) => {
+    menu.hidden = !open;
+    btn.setAttribute('aria-expanded', String(open));
+  };
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setOpen(menu.hidden);
+  });
+  menu.addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-code]');
+    if (!b) return;
+    menu.querySelectorAll('button').forEach((x) => x.classList.remove('is-active'));
+    menu.querySelectorAll('[role="option"]').forEach((x) => x.setAttribute('aria-selected', 'false'));
+    b.classList.add('is-active');
+    b.closest('[role="option"]').setAttribute('aria-selected', 'true');
+    if (current) current.textContent = b.dataset.code;
+    btn.setAttribute('aria-label', 'Language: ' + b.dataset.name);
+    setOpen(false);
+  });
+  document.addEventListener('click', (e) => {
+    if (!root.contains(e.target)) setOpen(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !menu.hidden) {
+      setOpen(false);
+      btn.focus();
+    }
+  });
+}
+
 /* ---------- Theme toggle ---------- */
 function initTheme() {
   const btn = document.getElementById('themeToggle');
@@ -190,17 +241,20 @@ function initCounters() {
       return;
     }
     const obj = { v: 0 };
+    const render = () => (el.textContent = Math.round(obj.v) + suffix);
+    const play = (duration) => gsap.fromTo(obj, { v: 0 }, { v: target, duration, ease: 'power2.out', onUpdate: render });
+    el.textContent = '0' + suffix;
+    // Re-animates every time the element scrolls back into view (not just once).
     ScrollTrigger.create({
       trigger: el,
       start: 'top 90%',
-      once: true,
-      onEnter: () =>
-        gsap.to(obj, {
-          v: target,
-          duration: 1.6,
-          ease: 'power2.out',
-          onUpdate: () => (el.textContent = Math.round(obj.v) + suffix),
-        }),
+      onEnter: () => play(1.6),
+      onEnterBack: () => play(1.0),
+      onLeaveBack: () => {
+        gsap.killTweensOf(obj);
+        obj.v = 0;
+        render();
+      },
     });
   });
 }
@@ -234,7 +288,6 @@ function initHeroParallax() {
 
 /* ---------- Boot ---------- */
 renderFeatures();
-renderExplore();
 heroShader = initHeroShader(document.getElementById('heroBg'));
 initSmoothScroll();
 initCursor({ prefersReduced });
@@ -244,14 +297,17 @@ initShowcase({ prefersReduced });
 initBentoMap(document.getElementById('bentoMap'));
 initSplit({ prefersReduced });
 initParallax({ prefersReduced });
+initChipReveal({ prefersReduced });
 initReveal();
 initHeader();
 initMobileMenu();
+initLang();
 initTheme();
 initCounters();
 initSpotlight();
 initLamp();
 initLoader({ prefersReduced });
+initGallery({ prefersReduced });
 initMagnetic({ prefersReduced });
 
 // Recompute pin distances once fonts / images settle.
