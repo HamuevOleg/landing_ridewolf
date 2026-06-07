@@ -20,6 +20,10 @@
 .footer__brand .header__logo {
   margin-bottom: var(--space-md);
 }
+.footer__brand .logo-wordmark {
+  width: 172px;
+  height: 30px;
+}
 
 .footer__slogan {
   font-size: var(--font-size-sm);

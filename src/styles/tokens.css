@@ -1,34 +1,35 @@
 /* ============================================================
    Design tokens — Ridewolf landing
-   Accent: Electric Indigo #5B6CFF
+   Accent: Coral #FF6B57 (also #FF7C6B soft, #E55745 strong)
    Surfaces: light #F5F7FA / #FFFFFF · dark #1F2228 / #2C3038
    ============================================================ */
 
 :root {
-  /* --- Accent ramp (OKLCH, hue ~265 — perceptually even steps) --- */
-  --indigo-50: oklch(0.97 0.02 265);
-  --indigo-100: oklch(0.94 0.04 265);
-  --indigo-200: oklch(0.88 0.08 265);
-  --indigo-300: oklch(0.8 0.13 265);
-  --indigo-400: oklch(0.71 0.18 265);
-  --indigo-500: oklch(0.62 0.21 265); /* ~#5B6CFF brand */
-  --indigo-600: oklch(0.55 0.21 265); /* button base, passes AA on white */
-  --indigo-700: oklch(0.48 0.19 265);
-  --indigo-800: oklch(0.4 0.16 265);
-  --indigo-900: oklch(0.32 0.12 265);
+  /* --- Accent ramp (coral) — OKLCH hue ~28, perceptually even steps.
+     (legacy var name `--indigo-*`; the values are the coral #FF6B57 family) --- */
+  --indigo-50: oklch(0.96 0.02 28);
+  --indigo-100: oklch(0.93 0.045 28);
+  --indigo-200: oklch(0.88 0.08 28);
+  --indigo-300: oklch(0.81 0.12 28);
+  --indigo-400: oklch(0.76 0.16 28); /* ~#FF7C6B soft */
+  --indigo-500: oklch(0.7 0.19 28); /* ~#FF6B57 brand */
+  --indigo-600: oklch(0.63 0.18 28); /* ~#E55745 button base */
+  --indigo-700: oklch(0.55 0.16 28);
+  --indigo-800: oklch(0.46 0.13 28);
+  --indigo-900: oklch(0.38 0.1 28);
 
   /* --- Semantic accent (constant across themes) --- */
-  --main: #5b6cff;
-  --main-strong: var(--indigo-600);
-  --main-soft: var(--indigo-400);
+  --main: #ff6b57;
+  --main-strong: #e55745;
+  --main-soft: #ff7c6b;
   --main-contrast: #ffffff; /* text on top of accent */
-  --accent-text: var(--indigo-600); /* indigo used as text on light bg */
+  --accent-text: #e55745; /* coral used as text on light bg */
 
-  --main-alpha-4: rgba(91, 108, 255, 0.04);
-  --main-alpha-8: rgba(91, 108, 255, 0.08);
-  --main-alpha-12: rgba(91, 108, 255, 0.12);
-  --main-alpha-20: rgba(91, 108, 255, 0.2);
-  --main-alpha-40: rgba(91, 108, 255, 0.4);
+  --main-alpha-4: rgba(255, 107, 87, 0.04);
+  --main-alpha-8: rgba(255, 107, 87, 0.08);
+  --main-alpha-12: rgba(255, 107, 87, 0.12);
+  --main-alpha-20: rgba(255, 107, 87, 0.2);
+  --main-alpha-40: rgba(255, 107, 87, 0.4);
 
   --focus-ring: 0 0 0 3px var(--bg-page), 0 0 0 5px var(--main);
   --glow-main: 0 0 60px var(--main-alpha-40);

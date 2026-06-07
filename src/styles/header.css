@@ -71,15 +71,15 @@
   color: var(--text-primary);
 }
 
-.header__logo-mark {
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
-  background: linear-gradient(135deg, var(--main-soft), var(--main-strong));
-  box-shadow: 0 4px 14px var(--main-alpha-40);
-  display: grid;
-  place-items: center;
-  color: #fff;
+/* RIDEWOLF wordmark — CSS-masked so it inherits the current text colour
+   (dark on light, white over the cinematic hero). */
+.logo-wordmark {
+  display: block;
+  width: 150px;
+  height: 26px;
+  background-color: currentColor;
+  -webkit-mask: url('/media/logo-wordmark.svg') center / contain no-repeat;
+  mask: url('/media/logo-wordmark.svg') center / contain no-repeat;
 }
 
 .header__nav {

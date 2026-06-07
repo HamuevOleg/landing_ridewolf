@@ -1,5 +1,5 @@
 // Cinematic hero background — fullscreen-quad simplex-noise shader (OGL).
-// slate -> Electric Indigo gradient mesh, mouse + scroll reactive.
+// slate -> coral gradient mesh, mouse + scroll reactive.
 // Falls back to a static CSS gradient when WebGL is unavailable or the
 // user prefers reduced motion.
 import { Renderer, Triangle, Program, Mesh, Vec2 } from 'ogl';
@@ -64,11 +64,11 @@ const fragment = /* glsl */ `
     n += 0.12 * snoise(p * 5.0 + t * 1.7);
 
     vec3 slate   = vec3(0.094, 0.106, 0.129);  // #181b21 deep slate
-    vec3 indigo  = vec3(0.357, 0.424, 1.0);     // #5b6cff
-    vec3 violet  = vec3(0.52, 0.40, 1.0);       // highlight
+    vec3 coral   = vec3(1.0, 0.420, 0.341);     // #ff6b57 brand
+    vec3 warm    = vec3(1.0, 0.486, 0.420);     // #ff7c6b highlight
 
-    vec3 color = mix(slate, indigo, smoothstep(-0.65, 0.75, n));
-    color = mix(color, violet, smoothstep(0.35, 0.95, n) * 0.6);
+    vec3 color = mix(slate, coral, smoothstep(-0.65, 0.75, n));
+    color = mix(color, warm, smoothstep(0.35, 0.95, n) * 0.6);
 
     // radial vignette focusing the upper-left where the headline sits
     float v = smoothstep(1.35, 0.2, length(uv - vec2(0.42, 0.5)));

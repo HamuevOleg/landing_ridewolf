@@ -1,0 +1,283 @@
+/* ============================================================
+   Lamp hero (ported from the Aceternity "lamp" effect — recolored
+   coral, animated with a GSAP-toggled .is-lit class) + smooth loader.
+   ============================================================ */
+
+.lamp {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  min-height: 100vh;
+  min-height: 100svh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #0a0b0f;
+  color: #fff;
+}
+
+.lamp__stage {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex: 1;
+  transform: scaleY(1.25);
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+  z-index: 0;
+}
+
+/* The two conic light beams */
+.lamp__beam {
+  position: absolute;
+  inset: auto;
+  height: 14rem;
+  width: 15rem;
+  opacity: 0.5;
+  transition: width 0.8s 0.3s var(--ease-in-out), opacity 0.8s 0.3s var(--ease-in-out);
+}
+.lamp.is-lit .lamp__beam {
+  width: 30rem;
+  opacity: 1;
+}
+.lamp__beam--l {
+  right: 50%;
+  overflow: visible;
+  background-image: conic-gradient(from 70deg at center top, var(--main), transparent 45%, transparent);
+}
+.lamp__beam--r {
+  left: 50%;
+  background-image: conic-gradient(from 290deg at center top, transparent, transparent 55%, var(--main));
+}
+/* Slate masks that fade the beam edges into the background */
+.lamp__beam--l::before,
+.lamp__beam--r::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 10rem;
+  background: #0a0b0f;
+  z-index: 20;
+  -webkit-mask-image: linear-gradient(to top, white, transparent);
+  mask-image: linear-gradient(to top, white, transparent);
+}
+.lamp__beam--l::after,
+.lamp__beam--r::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 10rem;
+  height: 100%;
+  background: #0a0b0f;
+  z-index: 20;
+}
+.lamp__beam--l::before { left: 0; }
+.lamp__beam--l::after {
+  left: 0;
+  -webkit-mask-image: linear-gradient(to right, white, transparent);
+  mask-image: linear-gradient(to right, white, transparent);
+}
+.lamp__beam--r::before { right: 0; }
+.lamp__beam--r::after {
+  right: 0;
+  -webkit-mask-image: linear-gradient(to left, white, transparent);
+  mask-image: linear-gradient(to left, white, transparent);
+}
+
+/* Soft floor blur */
+.lamp__floor {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 12rem;
+  transform: translateY(3rem) scaleX(1.5);
+  background: #0a0b0f;
+  filter: blur(40px);
+}
+/* Big soft glow */
+.lamp__glow {
+  position: absolute;
+  inset: auto;
+  z-index: 50;
+  height: 9rem;
+  width: 28rem;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: var(--main);
+  opacity: 0.5;
+  filter: blur(64px);
+}
+/* Bright concentrated spot */
+.lamp__spot {
+  position: absolute;
+  inset: auto;
+  z-index: 30;
+  height: 9rem;
+  width: 8rem;
+  transform: translateY(-6rem);
+  border-radius: 999px;
+  background: var(--main-soft);
+  filter: blur(32px);
+  transition: width 0.8s 0.3s var(--ease-in-out);
+}
+.lamp.is-lit .lamp__spot { width: 16rem; }
+/* The bright filament line */
+.lamp__line {
+  position: absolute;
+  inset: auto;
+  z-index: 50;
+  height: 2px;
+  width: 15rem;
+  transform: translateY(-7rem);
+  background: var(--main-soft);
+  box-shadow: 0 0 24px var(--main);
+  transition: width 0.8s 0.3s var(--ease-in-out);
+}
+.lamp.is-lit .lamp__line { width: 30rem; }
+/* Slate block masking the top half */
+.lamp__top {
+  position: absolute;
+  inset: auto;
+  z-index: 40;
+  height: 11rem;
+  width: 100%;
+  transform: translateY(-12.5rem);
+  background: #0a0b0f;
+}
+
+/* Content rises out of the light */
+.lamp__content {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-inline: var(--space-lg);
+  transform: translateY(-16rem);
+  width: min(900px, 92vw);
+}
+.lamp__badge {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s 0.5s var(--ease-out), transform 0.8s 0.5s var(--ease-out);
+}
+.lamp.is-lit .lamp__badge {
+  opacity: 1;
+  transform: translateY(0);
+}
+.lamp__title {
+  margin: var(--space-lg) 0 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  font-size: clamp(2.5rem, 6.5vw, 5.5rem);
+  opacity: 0.5;
+  transform: translateY(90px);
+  transition: opacity 0.8s 0.3s var(--ease-in-out), transform 0.8s 0.3s var(--ease-in-out);
+}
+.lamp.is-lit .lamp__title {
+  opacity: 1;
+  transform: translateY(0);
+}
+.lamp__title .accent {
+  background: linear-gradient(115deg, var(--main-soft), var(--main));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.lamp__subtitle {
+  margin: var(--space-lg) auto 0;
+  max-width: 52ch;
+  font-size: var(--font-size-lg);
+  line-height: var(--leading-loose);
+  color: rgba(255, 255, 255, 0.72);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s 0.55s var(--ease-out), transform 0.8s 0.55s var(--ease-out);
+}
+.lamp.is-lit .lamp__subtitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+.lamp__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s 0.7s var(--ease-out), transform 0.8s 0.7s var(--ease-out);
+}
+.lamp.is-lit .lamp__actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lamp__beam,
+  .lamp__spot,
+  .lamp__line,
+  .lamp__title,
+  .lamp__badge,
+  .lamp__subtitle,
+  .lamp__actions {
+    transition: none;
+  }
+}
+
+/* ---------------- Smooth loader band ---------------- */
+.loader {
+  position: relative;
+  background: #0a0b0f;
+  color: #fff;
+  padding-block: clamp(var(--space-4xl), 16vh, var(--space-5xl));
+}
+.loader__inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding-inline: var(--space-lg);
+  text-align: center;
+}
+.loader__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--main-soft);
+  margin-bottom: var(--space-lg);
+}
+.loader__bar {
+  position: relative;
+  height: 3px;
+  width: 100%;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+.loader__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--main-strong), var(--main-soft));
+  box-shadow: 0 0 18px var(--main-alpha-40);
+}
+.loader__pct {
+  display: block;
+  margin-top: var(--space-md);
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  background: linear-gradient(180deg, #fff, rgba(255, 255, 255, 0.55));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

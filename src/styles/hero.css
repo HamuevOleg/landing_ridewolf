@@ -28,7 +28,7 @@
 }
 .hero__bg--static {
   background:
-    radial-gradient(60% 60% at 42% 45%, rgba(91, 108, 255, 0.45), transparent 70%),
+    radial-gradient(60% 60% at 42% 45%, rgba(255, 107, 87, 0.45), transparent 70%),
     linear-gradient(160deg, #181b21, #11131a 70%);
 }
 /* Bottom fade so the hero melts into the page below */
@@ -75,7 +75,7 @@
 }
 @keyframes badgePulse {
   0%, 100% { box-shadow: 0 0 0 0 var(--main-alpha-40); }
-  50% { box-shadow: 0 0 0 6px rgba(91, 108, 255, 0); }
+  50% { box-shadow: 0 0 0 6px rgba(255, 107, 87, 0); }
 }
 
 .hero__title {
@@ -87,14 +87,14 @@
   max-width: 14ch;
 }
 .hero__title .accent {
-  background: linear-gradient(115deg, #8a96ff, #5b6cff 55%, #6d5bff);
+  background: linear-gradient(115deg, #ff7c6b, #ff6b57 55%, #e55745);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 /* Fallback if background-clip:text is unsupported / forced-colors */
 @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
-  .hero__title .accent { color: #8a96ff; }
+  .hero__title .accent { color: #ff7c6b; }
 }
 @media (forced-colors: active) {
   .hero__title .accent { color: LinkText; -webkit-text-fill-color: LinkText; }

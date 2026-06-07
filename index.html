@@ -25,14 +25,13 @@
     </script>
   </head>
   <body>
+    <div class="grain" aria-hidden="true"></div>
+
     <!-- ===================== HEADER ===================== -->
     <header class="header" id="header">
       <div class="header__container">
-        <a href="#" class="header__logo">
-          <span class="header__logo-mark" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 18a3 3 0 1 0 6 0 3 3 0 1 0-6 0"/><path d="M13 18a3 3 0 1 0 6 0 3 3 0 1 0-6 0"/><path d="M8 18h6l-2-9 4 3h2"/></svg>
-          </span>
-          Ridewolf
+        <a href="#" class="header__logo" aria-label="Ridewolf">
+          <span class="logo-wordmark" aria-hidden="true"></span>
         </a>
 
         <nav class="header__nav" aria-label="Primary">
@@ -71,166 +70,166 @@
     </header>
 
     <main>
-      <!-- ===================== SCROLL-VIDEO INTRO ===================== -->
-      <section class="intro" id="intro" aria-label="Intro animation">
-        <div class="intro__stage">
+      <!-- ============ HERO · film-to-logo opener (3-clip film → dive into the logo) ============ -->
+      <section class="opener" id="intro" aria-label="Ridewolf — the city in motion">
+        <div class="opener__stage">
           <video
-            class="intro__video"
+            class="opener__video"
             muted
             playsinline
             preload="auto"
             aria-hidden="true"
             tabindex="-1"
           >
-            <source src="/media/aerial-grid.mp4" type="video/mp4" />
+            <source src="/media/hero-sequence.mp4" type="video/mp4" />
           </video>
-          <div class="intro__tint" aria-hidden="true"></div>
-          <canvas class="intro__particles" aria-hidden="true"></canvas>
-          <div class="intro__vignette" aria-hidden="true"></div>
-          <div class="intro__logo" aria-hidden="true">
-            <img src="/media/Emblem.svg" alt="" width="180" height="180" />
+          <div class="opener__tint" aria-hidden="true"></div>
+          <div class="opener__vignette" aria-hidden="true"></div>
+          <canvas class="opener__particles" aria-hidden="true"></canvas>
+          <!-- per-clip split-text captions are injected here by opener.js -->
+          <div class="opener__captions" aria-hidden="true"></div>
+          <!-- the circular logo badge we dive into at the end -->
+          <div class="opener__emblem" aria-hidden="true">
+            <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ridewolf">
+              <circle cx="250" cy="250" r="250" fill="#0a0b0f" />
+              <path fill="#ffffff" d="M133.344 75.7115C160.267 110.105 190.41 117.911 225.273 115.921C253.003 114.338 264.976 116.068 281.076 118.801C294.539 121.088 310.395 130.845 316.573 136.698C345.765 138.42 380.786 143.007 410.518 148.657C408.523 157.643 404.629 179.45 394.397 216.894C389.157 235.117 380.924 249.722 369.693 260.705C358.465 271.438 346.237 278.303 333.012 281.298C347.235 285.043 356.967 290.784 362.208 298.523C367.697 306.261 368.071 318.369 363.329 334.844L341.995 409.359H275.368L291.463 353.192C296.704 334.718 290.964 325.483 274.245 325.483H247.169C227.952 325.483 211.046 338.185 205.691 356.646L190.401 409.359H123.88C130.92 369.14 145.779 311.818 170.016 285.81C168.191 299.374 168.643 312.179 170.902 322.574C179.487 302.117 193.766 281.19 208.249 269.66C207.217 275.309 208.563 287.905 210.206 293.803C220.306 272.454 246.835 253.072 272.192 252.425C296.784 251.797 301.729 255.952 314.489 255.15C325.114 254.48 330.683 249.381 333.658 245.134C334.562 243.842 334.052 242.095 332.693 241.296C332.216 241.016 331.882 240.818 331.713 240.721C331.857 238.422 331.312 233.087 330.607 229.939C326.283 233.042 323.322 236.052 319.728 236.053C315.781 235.069 312.122 234.675 308.288 233.518C304.164 232.274 298.195 231.102 295.851 230.888C293.506 230.675 288.88 231.248 287.009 232.314C288.837 227.273 295.67 224.082 302.365 221.704C309.32 219.235 328.877 218.171 331.33 218.987C333.782 219.803 335.956 222.335 337.619 229.939C340.854 226.429 344.153 221.113 345.725 214.245C346.743 213.846 348.039 213.544 349.76 211.353C351.482 209.161 357.395 198.868 359.448 186.34C347.676 182.437 337.018 180.519 327.78 178.671C318.541 176.823 300.299 175.524 297.187 175.387C294.519 171.894 288.153 164.773 277.888 162.171C267.622 159.569 256.055 158.611 246.474 159.364C236.893 160.117 234.057 161.144 222.452 161.144C203.686 161.144 183.509 152.655 172.149 146.083C171.464 161.145 175.708 171.414 182.62 180.451C170.262 181.84 134.734 135.352 133.344 75.7115Z" />
+              <path fill="#ffffff" d="M254.976 177.859C257.295 177.45 271.134 174.071 277.435 174.858C281.544 175.371 288.588 178.97 291.193 180.512C293.276 181.745 294.873 182.958 295.412 183.41C294.434 183.398 292.029 183.485 290.238 183.925C288 184.476 281.874 187.705 278.315 187.448C274.756 187.191 269.766 181.136 268.152 180.512C266.86 180.013 258.83 178.535 254.976 177.859Z" />
+              <path fill="#ff6b57" fill-opacity="0.55" d="M480 250C480 122.975 377.025 20 250 20C122.975 20 20 122.975 20 250C20 377.025 122.975 480 250 480V500C111.929 500 0 388.071 0 250C0 111.929 111.929 0 250 0C388.071 0 500 111.929 500 250C500 388.071 388.071 500 250 500V480C377.025 480 480 377.025 480 250Z" />
+            </svg>
           </div>
-          <div class="intro__black" aria-hidden="true"></div>
-          <div class="intro__hint" aria-hidden="true">
+          <div class="opener__black" aria-hidden="true"></div>
+          <div class="opener__hint" aria-hidden="true">
             <span>Scroll to begin</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
           </div>
         </div>
       </section>
 
-      <!-- ===================== HERO ===================== -->
-      <section class="hero" data-theme="dark">
-        <div class="hero__bg" id="heroBg" aria-hidden="true"></div>
-        <div class="hero__container container">
-          <div class="hero__text">
-            <span class="hero__badge"><span class="hero__badge-dot"></span> Operating in 30+ cities worldwide</span>
-            <h1 class="hero__title">Launch a <span class="accent">vehicle-sharing</span> fleet in any city</h1>
-            <p class="hero__subtitle">
-              Everything you need to launch and scale a shared fleet — scooters, bikes,
-              mopeds, or cars. One platform, any vehicle, any city.
-            </p>
-            <div class="hero__actions">
-              <a href="#demo" class="btn">Request a demo
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M13 8l-4-4M13 8l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-              <a href="#how" class="btn btn--ghost btn--on-dark">See how it works</a>
-            </div>
-            <div class="hero__stats">
-              <div>
-                <div class="hero__stat-num tabular" data-count="30" data-suffix="+">0</div>
-                <div class="hero__stat-label">Cities live</div>
-              </div>
-              <div>
-                <div class="hero__stat-num tabular" data-count="12" data-suffix="k">0</div>
-                <div class="hero__stat-label">Vehicles managed</div>
-              </div>
-              <div>
-                <div class="hero__stat-num tabular" data-count="99" data-suffix="%">0</div>
-                <div class="hero__stat-label">Platform uptime</div>
-              </div>
-            </div>
-          </div>
+      <!-- ============ MANIFESTO · editorial split-text on black ============ -->
+      <section class="manifesto" aria-label="What we build">
+        <div class="manifesto__inner">
+          <p class="manifesto__line"><span data-split>Rooted in the street.</span></p>
+          <p class="manifesto__line">
+            <span class="manifesto__chip" data-parallax="0.12" aria-hidden="true">
+              <video src="/media/scooter-zone.mp4" muted loop autoplay playsinline preload="metadata"></video>
+            </span>
+            <span data-split>Built for the whole city.</span>
+          </p>
+          <p class="manifesto__line"><span data-split>Scooters, bikes, mopeds, cars —</span></p>
+          <p class="manifesto__line">
+            <span data-split>One platform</span>
+            <span class="manifesto__chip" data-parallax="0.12" aria-hidden="true">
+              <video src="/media/city-intersection.mp4" muted loop autoplay playsinline preload="metadata"></video>
+            </span>
+            <span data-split>for every ride.</span>
+          </p>
+        </div>
+      </section>
 
-          <div class="hero__visual">
-            <div class="hero__float hero__float--tl">
-              <span class="hero__float-icon hero__float-icon--ok">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-              </span>
-              Vehicle unlocked
-            </div>
-
-            <!-- Rider-app mockup (pure CSS/SVG) -->
-            <div class="app-mock" role="img" aria-label="Rider app showing nearby vehicles on a live map">
-              <div class="app-mock__statusbar">
-                <span>9:41</span>
-                <span class="app-mock__brand">Ridewolf</span>
-                <span class="app-mock__signal"></span>
-              </div>
-              <div class="app-mock__map">
-                <svg class="app-mock__roads" viewBox="0 0 320 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                  <path d="M-20 90 H340" /><path d="M-20 210 H340" /><path d="M-20 300 H340" />
-                  <path d="M70 -20 V380" /><path d="M180 -20 V380" /><path d="M260 -20 V380" />
-                  <path class="app-mock__route" d="M48 320 C 120 300, 120 200, 180 190 S 250 120, 270 70" />
-                </svg>
-                <span class="app-mock__pin app-mock__pin--a"></span>
-                <span class="app-mock__pin app-mock__pin--b"></span>
-                <span class="app-mock__pin app-mock__pin--c"></span>
-                <span class="app-mock__me"></span>
-              </div>
-              <div class="app-mock__sheet">
-                <div class="app-mock__vehicle">
-                  <span class="app-mock__vehicle-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg>
-                  </span>
-                  <div>
-                    <strong>E-Scooter · 120 m</strong>
-                    <span>87% battery · $0.20/min</span>
-                  </div>
-                  <span class="app-mock__badge">Ready</span>
-                </div>
-                <div class="app-mock__unlock">Scan to unlock</div>
-              </div>
-            </div>
-
-            <div class="hero__float hero__float--br">
-              <span class="hero__float-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg>
-              </span>
-              +24% fleet revenue
-            </div>
+      <!-- ===================== LAMP HERO (coral · ported native) ===================== -->
+      <section class="lamp" data-theme="dark" aria-label="Launch your fleet">
+        <div class="lamp__stage" aria-hidden="true">
+          <div class="lamp__beam lamp__beam--l"></div>
+          <div class="lamp__beam lamp__beam--r"></div>
+          <div class="lamp__floor"></div>
+          <div class="lamp__glow"></div>
+          <div class="lamp__spot"></div>
+          <div class="lamp__line"></div>
+          <div class="lamp__top"></div>
+        </div>
+        <div class="lamp__content">
+          <span class="hero__badge lamp__badge"><span class="hero__badge-dot"></span> Operating in 30+ cities worldwide</span>
+          <h1 class="lamp__title">Launch a <span class="accent">vehicle-sharing</span> fleet in any city</h1>
+          <p class="lamp__subtitle">
+            Everything you need to launch and scale a shared fleet — scooters, bikes,
+            mopeds, or cars. One platform, any vehicle, any city.
+          </p>
+          <div class="lamp__actions">
+            <a href="#demo" class="btn" data-magnetic="0.3">Request a demo
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M13 8l-4-4M13 8l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="#how" class="btn btn--ghost btn--on-dark">See how it works</a>
           </div>
         </div>
       </section>
 
-      <!-- ===================== HOW IT WORKS ===================== -->
-      <section class="section section--md" id="how">
-        <div class="container">
-          <div class="section-header reveal">
-            <span class="eyebrow">How it works</span>
-            <h2>On the road in three steps</h2>
-            <div class="separator-line"></div>
-            <p>Get your shared fleet live without the operational headache.</p>
+      <!-- ===================== SMOOTH LOADER ===================== -->
+      <section class="loader" aria-label="Powering mobility">
+        <div class="loader__inner">
+          <span class="loader__label">Powering the future of mobility</span>
+          <div class="loader__bar"><span class="loader__fill"></span></div>
+          <span class="loader__pct">0%</span>
+        </div>
+      </section>
+
+      <!-- ===================== TRUST MARQUEE ===================== -->
+      <section class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <div class="marquee__group">
+            <span>30+ cities</span><span class="dot"></span>
+            <span>12,000 vehicles</span><span class="dot"></span>
+            <span>99.9% uptime</span><span class="dot"></span>
+            <span>Scooters</span><span class="dot"></span>
+            <span>Bikes</span><span class="dot"></span>
+            <span>Mopeds</span><span class="dot"></span>
+            <span>Cars</span><span class="dot"></span>
+            <span>White-label apps</span><span class="dot"></span>
           </div>
-          <div class="how__steps" data-stagger>
-            <div class="how__step reveal">
-              <div class="how__step-number">1</div>
-              <div class="how__step-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>
-              </div>
-              <h3>Set up your fleet</h3>
-              <p>Add your vehicles, define service zones, and configure pricing. Our team helps you get everything ready for launch.</p>
-            </div>
-            <div class="how__step reveal">
-              <div class="how__step-number">2</div>
-              <div class="how__step-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11s-8-6-8-11a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-              </div>
-              <h3>Riders find &amp; unlock</h3>
-              <p>Customers download your branded app, find nearby vehicles on the map, and unlock them with a single tap.</p>
-            </div>
-            <div class="how__step reveal">
-              <div class="how__step-number">3</div>
-              <div class="how__step-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg>
-              </div>
-              <h3>Ride, park &amp; pay</h3>
-              <p>Riders enjoy their trip, park in a designated zone, and payment is processed automatically. You track everything in real time.</p>
-            </div>
+          <div class="marquee__group">
+            <span>30+ cities</span><span class="dot"></span>
+            <span>12,000 vehicles</span><span class="dot"></span>
+            <span>99.9% uptime</span><span class="dot"></span>
+            <span>Scooters</span><span class="dot"></span>
+            <span>Bikes</span><span class="dot"></span>
+            <span>Mopeds</span><span class="dot"></span>
+            <span>Cars</span><span class="dot"></span>
+            <span>White-label apps</span><span class="dot"></span>
           </div>
         </div>
       </section>
 
-      <!-- ===================== SCROLL VIDEO · scooter zone ===================== -->
-      <section class="svid" data-scroll-video data-pps="95" aria-label="Geofenced parking">
-        <div class="svid__stage">
-          <video class="svid__video" muted playsinline preload="metadata" aria-hidden="true" tabindex="-1">
-            <source src="/media/scooter-zone.mp4" type="video/mp4" />
-          </video>
-          <div class="svid__tint" aria-hidden="true"></div>
-          <div class="svid__caption">
-            <span class="eyebrow">Geofenced zones</span>
-            <h2>Park inside the zone, every time</h2>
-            <p>Define pick-up, ride and parking areas — enforced automatically.</p>
+      <!-- ===================== HOW IT WORKS · horizontal pinned scroll ===================== -->
+      <section class="howx" id="how" aria-label="How it works">
+        <div class="howx__pin">
+          <div class="howx__track">
+            <div class="howx__panel howx__intro">
+              <span class="eyebrow">How it works</span>
+              <h2>On the road in three steps</h2>
+              <p>Get your shared fleet live without the operational headache — scroll through the journey.</p>
+            </div>
+
+            <article class="howx__panel howx__card">
+              <span class="howx__num">01</span>
+              <div class="howx__media" data-media="how-1">
+                <span class="howx__media-tag">video · setup</span>
+              </div>
+              <div class="howx__body">
+                <h3>Set up your fleet</h3>
+                <p>Add vehicles, draw service zones and configure pricing. Our team gets you launch-ready.</p>
+              </div>
+            </article>
+
+            <article class="howx__panel howx__card">
+              <span class="howx__num">02</span>
+              <div class="howx__media" data-media="how-2">
+                <span class="howx__media-tag">video · unlock</span>
+              </div>
+              <div class="howx__body">
+                <h3>Riders find &amp; unlock</h3>
+                <p>Customers open your branded app, spot nearby vehicles on the map and unlock with one tap.</p>
+              </div>
+            </article>
+
+            <article class="howx__panel howx__card">
+              <span class="howx__num">03</span>
+              <div class="howx__media" data-media="how-3">
+                <span class="howx__media-tag">video · ride &amp; pay</span>
+              </div>
+              <div class="howx__body">
+                <h3>Ride, park &amp; pay</h3>
+                <p>They ride, park inside the zone, and payment settles automatically — you track it all live.</p>
+              </div>
+            </article>
           </div>
         </div>
       </section>
@@ -241,7 +240,7 @@
           <div class="section-header section-header--left reveal">
             <div>
               <span class="eyebrow">Platform</span>
-              <h2>Built for shared mobility</h2>
+              <h2 data-split>Built for shared mobility</h2>
               <p>Every tool you need to run a profitable fleet — from day one.</p>
             </div>
             <a href="#demo" class="btn btn--ghost btn--sm">Request a demo
@@ -252,30 +251,41 @@
         </div>
       </section>
 
-      <!-- ===================== SCROLL VIDEO · intersection ===================== -->
-      <section class="svid" data-scroll-video data-pps="105" aria-label="City in motion">
-        <div class="svid__stage">
-          <video class="svid__video" muted playsinline preload="metadata" aria-hidden="true" tabindex="-1">
-            <source src="/media/city-intersection.mp4" type="video/mp4" />
-          </video>
-          <div class="svid__tint" aria-hidden="true"></div>
-          <div class="svid__caption">
-            <span class="eyebrow">Real-time</span>
-            <h2>Your city, always in motion</h2>
+      <!-- ===================== KINETIC STATS ===================== -->
+      <section class="kstats" aria-label="By the numbers">
+        <div class="kstats__bg" aria-hidden="true"></div>
+        <div class="container kstats__grid">
+          <div class="kstat reveal">
+            <div class="kstat__num" data-count="30" data-suffix="+">0</div>
+            <div class="kstat__label">Cities live</div>
+          </div>
+          <div class="kstat reveal">
+            <div class="kstat__num" data-count="12" data-suffix="k">0</div>
+            <div class="kstat__label">Vehicles managed</div>
+          </div>
+          <div class="kstat reveal">
+            <div class="kstat__num" data-count="99" data-suffix="%">0</div>
+            <div class="kstat__label">Platform uptime</div>
+          </div>
+          <div class="kstat reveal">
+            <div class="kstat__num" data-count="4">0</div>
+            <div class="kstat__label">Vehicle types</div>
           </div>
         </div>
       </section>
 
-      <!-- ===================== CTA ===================== -->
-      <section class="cta" id="demo">
-        <div class="container">
-          <div class="cta__island reveal">
-            <h2>Ready to launch your sharing fleet?</h2>
-            <p>Join operators worldwide who trust Ridewolf to power their vehicle sharing business. Get a personalized demo today.</p>
-            <a href="#demo" class="btn">Request a demo
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M13 8l-4-4M13 8l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </div>
+      <!-- ===================== CTA · cinematic full-bleed ===================== -->
+      <section class="cta-cine" id="demo" aria-label="Request a demo">
+        <video class="cta-cine__video" muted loop autoplay playsinline preload="metadata" aria-hidden="true" tabindex="-1">
+          <source src="/media/hero-sequence.mp4" type="video/mp4" />
+        </video>
+        <div class="cta-cine__tint" aria-hidden="true"></div>
+        <div class="cta-cine__inner container">
+          <h2 data-split>Ready to launch your sharing fleet?</h2>
+          <p>Join operators worldwide who trust Ridewolf to power their vehicle-sharing business. Get a personalized demo today.</p>
+          <a href="#demo" class="btn" data-magnetic="0.3">Request a demo
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M13 8l-4-4M13 8l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
         </div>
       </section>
 
@@ -284,7 +294,7 @@
         <div class="container">
           <div class="section-header reveal">
             <span class="eyebrow">More from Ridewolf</span>
-            <h2>Explore more</h2>
+            <h2 data-split>Explore more</h2>
             <div class="separator-line"></div>
           </div>
           <div class="explore__grid" data-stagger id="exploreGrid"></div>
@@ -297,11 +307,8 @@
       <div class="footer__top container">
         <div class="footer__grid">
           <div class="footer__brand">
-            <a href="#" class="header__logo">
-              <span class="header__logo-mark" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 18a3 3 0 1 0 6 0 3 3 0 1 0-6 0"/><path d="M13 18a3 3 0 1 0 6 0 3 3 0 1 0-6 0"/><path d="M8 18h6l-2-9 4 3h2"/></svg>
-              </span>
-              Ridewolf
+            <a href="#" class="header__logo" aria-label="Ridewolf">
+              <span class="logo-wordmark" aria-hidden="true"></span>
             </a>
             <p class="footer__slogan">We help operators launch and scale mobility platforms.</p>
           </div>

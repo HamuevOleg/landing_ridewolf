@@ -1,10 +1,13 @@
 import './styles/tokens.css';
 import './styles/base.css';
 import './styles/header.css';
-import './styles/intro.css';
-import './styles/scroll-video.css';
+import './styles/cursor.css';
+import './styles/anim.css';
+import './styles/cinematic.css';
 import './styles/hero.css';
 import './styles/sections.css';
+import './styles/pro.css';
+import './styles/lamp.css';
 import './styles/footer.css';
 
 import Lenis from 'lenis';
@@ -14,8 +17,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { features, exploreLinks } from './data.js';
 import { icon } from './icons.js';
 import { initHeroShader } from './hero-shader.js';
-import { initIntro } from './intro.js';
-import { initScrollVideo } from './scroll-video.js';
+import { initOpener } from './opener.js';
+import { initCursor } from './cursor.js';
+import { initSplit, initParallax } from './anim.js';
+import { initMagnetic } from './effects.js';
+import { initHowHorizontal } from './how-horizontal.js';
+import { initBentoMap } from './bento-map.js';
+import { initLamp, initLoader } from './lamp.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,14 +36,20 @@ function renderFeatures() {
   const grid = document.getElementById('featuresGrid');
   if (!grid) return;
   grid.innerHTML = features
-    .map(
-      (f) => `
-      <article class="feature-card reveal">
-        <div class="feature-card__icon">${icon(f.icon)}</div>
+    .map((f, i) => {
+      const variant = i === 0 ? ' feature-card--xl' : i === 1 ? ' feature-card--wide' : '';
+      const head =
+        i === 0
+          ? `<div class="feature-card__viz" aria-hidden="true"><canvas id="bentoMap"></canvas></div>
+        <span class="feature-card__live">Live</span>`
+          : `<div class="feature-card__icon">${icon(f.icon)}</div>`;
+      return `
+      <article class="feature-card reveal${variant}">
+        ${head}
         <h3>${f.title}</h3>
         <p>${f.text}</p>
-      </article>`
-    )
+      </article>`;
+    })
     .join('');
 }
 
@@ -43,27 +57,34 @@ function renderExplore() {
   const grid = document.getElementById('exploreGrid');
   if (!grid) return;
   grid.innerHTML = exploreLinks
-    .map(
-      (l) => `
-      <a href="#" class="explore__card reveal">
-        <h3 class="explore__card-title">${l.title}
-          <span class="explore__arrow">${icon('arrow')}</span>
-        </h3>
-        <p class="explore__card-text">${l.text}</p>
-      </a>`
-    )
+    .map((l) => {
+      const key = l.title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
+      return `
+      <a href="#" class="xcard reveal" data-explore="${key}">
+        <div class="xcard__media">
+          <span class="xcard__tag">image · ${key}</span>
+        </div>
+        <div class="xcard__body">
+          <h3 class="xcard__title">${l.title}<span class="xcard__arrow">${icon('arrow')}</span></h3>
+          <p class="xcard__text">${l.text}</p>
+        </div>
+      </a>`;
+    })
     .join('');
 }
 
 /* ---------- Smooth scroll (Lenis) ---------- */
 function initSmoothScroll() {
   if (prefersReduced) return;
-  // Slower, less abrupt feel — heavier easing + reduced wheel step
+  // Continuous exponential smoothing (lerp mode) — very fluid, no abrupt stops,
+  // which keeps the scrubbed hero video gliding without jerks.
   const lenis = new Lenis({
-    duration: 1.6,
-    easing: (t) => 1 - Math.pow(1 - t, 3),
+    lerp: 0.055,
     smoothWheel: true,
-    wheelMultiplier: 0.8,
+    wheelMultiplier: 0.9,
     touchMultiplier: 1.2,
   });
   lenis.on('scroll', ({ scroll }) => {
@@ -158,7 +179,7 @@ function initTheme() {
 
 /* ---------- Animated stat counters ---------- */
 function initCounters() {
-  document.querySelectorAll('.hero__stat-num').forEach((el) => {
+  document.querySelectorAll('[data-count]').forEach((el) => {
     const target = +el.dataset.count;
     const suffix = el.dataset.suffix || '';
     if (prefersReduced) {
@@ -213,14 +234,21 @@ renderFeatures();
 renderExplore();
 heroShader = initHeroShader(document.getElementById('heroBg'));
 initSmoothScroll();
-initIntro({ prefersReduced });
-document.querySelectorAll('[data-scroll-video]').forEach((s) =>
-  initScrollVideo(s, { pxPerSec: Number(s.dataset.pps) || 100 })
-);
+initCursor({ prefersReduced });
+initOpener({ prefersReduced });
+initHowHorizontal({ prefersReduced });
+initBentoMap(document.getElementById('bentoMap'));
+initSplit({ prefersReduced });
+initParallax({ prefersReduced });
 initReveal();
 initHeader();
 initMobileMenu();
 initTheme();
 initCounters();
 initSpotlight();
-initHeroParallax();
+initLamp();
+initLoader({ prefersReduced });
+initMagnetic({ prefersReduced });
+
+// Recompute pin distances once fonts / images settle.
+window.addEventListener('load', () => ScrollTrigger.refresh());

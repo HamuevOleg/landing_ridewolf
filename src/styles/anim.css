@@ -1,0 +1,17 @@
+/* ============================================================
+   Split-text "mask up" reveal primitives
+   ============================================================ */
+
+/* Each word is wrapped in a clipping mask; its inner span rises into view.
+   Extra padding/negative-margin keeps descenders (g, y, p) from clipping. */
+.tw {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.tw__i {
+  display: inline-block;
+  will-change: transform;
+}
